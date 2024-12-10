@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TaskColumn from "./components/TaskColumn";
-import SearchBar from "./components/SearchBar";
-import doneIcon from "./assets/done-1476-svgrepo-com.svg";
-import reviewIcon from "./assets/review-screen-svgrepo-com.svg";
-import progressIcon from "./assets/in-progress-svgrepo-com.svg";
-import TodoIcon from "./assets/to-do-svgrepo-com.svg";
+import { FcTodoList } from "react-icons/fc";
+import { MdReviews } from "react-icons/md";
+import { MdDone } from "react-icons/md";
+import { GrInProgress } from "react-icons/gr";
+
+
+import TaskForm from "./components/TaskForm";
+import Header from "./components/header";
 
 const App = () => {
   const [tasks, setTasks] = useState(
@@ -15,6 +18,7 @@ const App = () => {
     JSON.parse(localStorage.getItem("tasks") || "[]")
   );
   const [activeCard, setActiveCard] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -32,27 +36,29 @@ const App = () => {
     const updatedTask = tasks?.filter((task, index) => index !== activeCard);
     updatedTask.splice(position, 0, {
       ...taskMove,
-      status: status
+      status: status,
     });
     setTasks(updatedTask);
     setTasksCopy(updatedTask);
   };
 
-  const [filteredItems, setFilteredItems] = useState(tasks);
-
   const filteredData = (newData) => {
-    if (newData === " ") {
-      setTasks(tasksCopy);
-    } else {
-      setTasks(newData);
-    }
+    setTasks(newData);
   };
 
+  const icons = {
+    todo: <FcTodoList />,
+    doing: <GrInProgress />,
+    "Peer Review": <MdReviews />, 
+    done: <MdDone />,
+  };
+  
+  
   const columnData = [
-    { title: "To do", icon: TodoIcon, status: "todo" },
-    { title: "In Progress", icon: progressIcon, status: "doing" },
-    { title: "Peer Review", icon: reviewIcon, status: "Peer Review" },
-    { title: "Done", icon: doneIcon, status: "done" }
+    { title: "To do", icon: "todo", status: "todo" },
+    { title: "In Progress", icon: "doing", status: "doing" },
+    { title: "Peer Review", icon: "Peer Review", status: "Peer Review" },
+    { title: "Done", icon: "done", status: "done" },
   ];
 
   return (
@@ -64,9 +70,14 @@ const App = () => {
         className="container mx-auto"
       >
         <div className="mb-8">
-          <SearchBar 
-            onSearch={filteredData} 
-            className="bg-gray-700 text-white placeholder-gray-400 rounded-xl shadow-lg"
+          <Header
+            onSearch={(query) => {
+              const filteredItems = tasksCopy.filter((task) =>
+                task.task.toLowerCase().includes(query.toLowerCase())
+              );
+              filteredData(query === "" ? tasksCopy : filteredItems);
+            }}
+            openModal={() => setIsModalOpen(true)}
           />
         </div>
 
@@ -77,17 +88,18 @@ const App = () => {
                 key={column.status}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: index * 0.2,
-                  ease: "easeOut" 
+                  ease: "easeOut",
                 }}
                 className="bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 p-4"
               >
-                <TaskColumn 
+                <TaskColumn
                   title={column.title}
                   status={column.status}
                   icon={column.icon}
+                  icons={icons}
                   tasks={tasks}
                   onDrop={onDrop}
                   setActiveCard={setActiveCard}
@@ -100,6 +112,45 @@ const App = () => {
           </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsModalOpen(false)}
+              className="fixed inset-0 bg-black z-40"
+            />
+
+            {/* Modal */}
+            <motion.div
+              key="modal"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-50 flex items-center justify-center"
+            >
+              <div
+                className="bg-gray-800 p-6 rounded-lg shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <TaskForm
+                  setTasks={setTasks}
+                  setTasksCopy={setTasksCopy}
+                  setToggle={setIsModalOpen}
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
