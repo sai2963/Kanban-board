@@ -1,88 +1,85 @@
+Kanban Board Project
 
-# Kanban Board using React
+This project is a web-based Kanban Board application designed for efficient task management and collaboration. Built using Next.js and styled with Tailwind CSS, it offers a responsive and user-friendly interface for managing projects and workflows.
 
-A React-based application for managing tasks with features like adding, searching, and organizing tasks via drag-and-drop functionality.
+🚀 Features
+Task Management: Create, update, and delete tasks.
+Column Management: Add, move, and delete columns to organize tasks.
+Drag-and-Drop Support: Easily move tasks between columns.
+Responsive Design: Works seamlessly across devices, from desktops to mobile phones.
+Persistent State: Data stored locally or in a database for future sessions.
+User-Friendly UI: Intuitive design for better productivity.
+📂 Folder Structure
+csharp
+Copy code
+.
+├── public/           # Static files (e.g., images, icons)
+├── src/
+│   ├── components/   # Reusable React components
+│   ├── pages/        # Next.js pages
+│   ├── styles/       # Tailwind CSS configurations
+│   └── utils/        # Helper functions (e.g., drag-and-drop logic)
+├── .env.local        # Environment variables (e.g., API keys)
+├── package.json      # Project dependencies
+└── README.md         # Documentation
+🛠️ Tech Stack
+Frontend: Next.js, React, Tailwind CSS
+Backend: Firebase (for database and authentication)
+State Management: Context API
+Deployment: Vercel
+🖥️ Live Demo
+Check out the live application: Kanban Board
 
-## Features
+📝 Installation and Setup
+Clone the repository:
 
-- **Task Management**: Add, edit, and delete tasks.
-- **Drag-and-Drop**: Organize tasks visually.
-- **Search Functionality**: Search tasks based on keywords.
-- **Interactive Forms**: Easy-to-use forms for task input.
+bash
+Copy code
+git clone https://github.com/sai2963/Kanban-board.git
+cd Kanban-board
+Install dependencies:
 
-## Project Structure
+bash
+Copy code
+npm install
+Add Firebase Configuration:
 
-### Components
+Create a .env.local file in the root directory.
+Add your Firebase credentials:
+makefile
+Copy code
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+Run the development server:
 
-1. **Drop** (`Drop.jsx`):  
-   Handles drag-and-drop functionality with visual feedback.
-   
-2. **SearchBar** (`SearchBar.jsx`):  
-   Provides a search interface to filter tasks based on user input.
+bash
+Copy code
+npm run dev
+Open http://localhost:3000 to view the app in your browser.
 
-3. **TaskCard** (`TaskCard.jsx`):  
-   Displays individual tasks with drag-and-drop and delete functionality.
+📋 Usage Instructions
+Add Columns: Click the "Add Column" button to create new task columns.
+Add Tasks: Use the "Add Task" button inside each column to create tasks.
+Move Tasks: Drag and drop tasks between columns to update their status.
+Delete Tasks/Columns: Use the delete icon to remove tasks or columns.
+🧑‍💻 Contribution Guidelines
+Contributions are welcome! To contribute:
 
-4. **TaskForm** (`TaskForm.jsx`):  
-   Handles task input and submission, including task descriptions.
+Fork the repository.
+Create a feature branch: git checkout -b feature-name.
+Commit your changes: git commit -m 'Add new feature'.
+Push to the branch: git push origin feature-name.
+Open a pull request.
+⚖️ License
+This project is licensed under the MIT License.
 
-### Styles
+📧 Contact
+For questions or suggestions, feel free to reach out:
 
-- CSS files for each component to ensure modular styling:
-  - `Drop.css`
-  - `searchbar.css`
-  - `TaskCard.css`
-  - `TaskForm.css`
-
-### Assets
-
-- Icons (e.g., delete icon) and any other assets are stored in the `assets` folder.
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-
-   git clone <repository-url>
-   cd <repository-folder>
-
-   ```
-
-2. Install dependencies:
-   ```bash
-
-   npm install
-
-   ```
-
-3. Start the development server:
-   ```bash
-
-   npm run dev
-   ```
-
-4. Open the application in your browser:
-   ```
-   http://localhost:5173
-   ```
-
-## Usage
-
-1. **Add a Task**: Use the form to input a task title and description, then click "Submit Task."
-2. **Search Tasks**: Use the search bar to filter tasks by keywords.
-3. **Organize Tasks**: Drag tasks to rearrange them.
-4. **Delete a Task**: Click the delete icon on any task card.
-
-## Technologies Used
-
-- **React**: For building the user interface.
-- **CSS**: For styling components.
-
-## Future Enhancements
-
-- Add task prioritization.
-- Implement user authentication.
-- Introduce a backend for data persistence.
-
-# Kanban-board
-# Kanban-board
+Name: Duduka Venkat Sai
+Email: venkatsai2963@outlook.com
+Phone: +91-8074698113
