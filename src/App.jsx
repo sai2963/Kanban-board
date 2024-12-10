@@ -5,8 +5,7 @@ import SearchBar from "./components/SearchBar";
 import doneIcon from "./assets/done-1476-svgrepo-com.svg";
 import reviewIcon from "./assets/review-screen-svgrepo-com.svg";
 import progressIcon from "./assets/in-progress-svgrepo-com.svg";
-import TodoIcon from "./assets/to-do-svgrepo-com.svg"
-
+import TodoIcon from "./assets/to-do-svgrepo-com.svg";
 
 const App = () => {
   const [tasks, setTasks] = useState(
@@ -85,22 +84,16 @@ const App = () => {
                 }}
                 className="bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 p-4"
               >
-                <div className="flex items-center mb-4 space-x-3">
-                  <img 
-                    src={column.icon} 
-                    alt={column.title} 
-                    className="w-8 h-8 filter brightness-150"
-                  />
-                  <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-                    {column.title}
-                  </h2>
-                </div>
                 <TaskColumn 
+                  title={column.title}
                   status={column.status}
+                  icon={column.icon}
                   tasks={tasks}
                   onDrop={onDrop}
                   setActiveCard={setActiveCard}
                   handleDelete={handleDelete}
+                  setTasks={setTasks}
+                  setTasksCopy={setTasksCopy}
                 />
               </motion.div>
             ))}
